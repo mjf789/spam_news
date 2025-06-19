@@ -11,7 +11,7 @@ zero_shot:
 # Fine-tuning settings
 fine_tuning:
   base_model: "roberta-base"
-  learning_rate: 2e-5
+  learning_rate: 0.00002
   batch_size: 16
   max_epochs: 10
   warmup_steps: 100
