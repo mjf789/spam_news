@@ -7,6 +7,9 @@ import pandas as pd
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 import logging
+import pickle
+import hashlib
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -119,27 +122,34 @@ class ArticleDataLoader:
         
         return pd.DataFrame(records)
     
-    def get_train_test_split(self, test_size: float = 0.2, random_state: int = 42):
+    def get_train_val_test_split(self, val_size: float = 0.2, test_size: float = 0.2, 
+                                   random_state: int = 42):
         """
-        Split articles into train and test sets
+        Split articles into train, validation, and test sets (60/20/20 by default)
         
         Args:
+            val_size: Fraction of data for validation
             test_size: Fraction of data for testing
             random_state: Random seed for reproducibility
         """
         if self._df is None:
             self.load_articles()
             
-        # Shuffle and split
+        # Shuffle
         df_shuffled = self._df.sample(frac=1, random_state=random_state).reset_index(drop=True)
-        split_idx = int(len(df_shuffled) * (1 - test_size))
         
-        train_df = df_shuffled[:split_idx]
-        test_df = df_shuffled[split_idx:]
+        # Calculate split indices
+        test_idx = int(len(df_shuffled) * (1 - test_size))
+        val_idx = int(test_idx * (1 - val_size))
         
-        logger.info(f"Train set: {len(train_df)} articles, Test set: {len(test_df)} articles")
+        # Split
+        train_df = df_shuffled[:val_idx]
+        val_df = df_shuffled[val_idx:test_idx]
+        test_df = df_shuffled[test_idx:]
         
-        return train_df, test_df
+        logger.info(f"Train: {len(train_df)}, Val: {len(val_df)}, Test: {len(test_df)} articles")
+        
+        return train_df, val_df, test_df
     
     def save_preprocessed(self, save_path: Union[str, Path], format: str = 'pickle'):
         """Save preprocessed data for faster loading"""
@@ -159,6 +169,113 @@ class ArticleDataLoader:
             raise ValueError(f"Unknown format: {format}")
             
         logger.info(f"Saved preprocessed data to {save_path}")
+
+
+    def validate_data(self) -> Dict[str, any]:
+        """Validate loaded data and return validation report"""
+        if self._df is None:
+            self.load_articles()
+            
+        report = {
+            'total_articles': len(self._df),
+            'sources': self._df['source'].value_counts().to_dict(),
+            'date_range': (self._df['date'].min(), self._df['date'].max()),
+            'missing_content': self._df['content'].isna().sum(),
+            'missing_coding': 0,
+            'coding_stats': {}
+        }
+        
+        # Check human coding
+        if 'human_coding' in self._df.columns:
+            coding_df = self.get_coding_data()
+            if len(coding_df) > 0:
+                report['coding_stats'] = {
+                    'total_annotations': len(coding_df),
+                    'frames': coding_df['frame_type'].value_counts().to_dict(),
+                    'demographics': coding_df['demographic_group'].value_counts().to_dict()
+                }
+            else:
+                report['missing_coding'] = len(self._df)
+        
+        # Validate each article
+        issues = []
+        for idx, row in self._df.iterrows():
+            if pd.isna(row['content']) or len(row['content']) < 50:
+                issues.append(f"Article {row['article_id']}: Content too short or missing")
+            if 'human_coding' not in row or not row['human_coding']:
+                issues.append(f"Article {row['article_id']}: No human coding")
+        
+        report['issues'] = issues
+        report['is_valid'] = len(issues) == 0
+        
+        return report
+
+
+class DataCache:
+    """Caching system for preprocessed data"""
+    
+    def __init__(self, cache_dir: Union[str, Path] = "cache"):
+        self.cache_dir = Path(cache_dir)
+        self.cache_dir.mkdir(exist_ok=True)
+    
+    def _get_cache_key(self, data_path: str, preprocessing_version: str = "v1") -> str:
+        """Generate cache key based on file path and version"""
+        key_string = f"{data_path}_{preprocessing_version}"
+        return hashlib.md5(key_string.encode()).hexdigest()
+    
+    def _get_cache_path(self, cache_key: str) -> Path:
+        """Get full path for cache file"""
+        return self.cache_dir / f"{cache_key}.pkl"
+    
+    def load_cached(self, data_path: str, preprocessing_version: str = "v1") -> Optional[any]:
+        """Load data from cache if available"""
+        cache_key = self._get_cache_key(data_path, preprocessing_version)
+        cache_path = self._get_cache_path(cache_key)
+        
+        if cache_path.exists():
+            try:
+                with open(cache_path, 'rb') as f:
+                    cached_data = pickle.load(f)
+                logger.info(f"Loaded cached data from {cache_path}")
+                return cached_data
+            except Exception as e:
+                logger.warning(f"Failed to load cache: {e}")
+                return None
+        return None
+    
+    def save_cache(self, data: any, data_path: str, preprocessing_version: str = "v1"):
+        """Save data to cache"""
+        cache_key = self._get_cache_key(data_path, preprocessing_version)
+        cache_path = self._get_cache_path(cache_key)
+        
+        try:
+            with open(cache_path, 'wb') as f:
+                pickle.dump(data, f)
+            logger.info(f"Saved cache to {cache_path}")
+        except Exception as e:
+            logger.warning(f"Failed to save cache: {e}")
+    
+    def clear_cache(self):
+        """Clear all cached files"""
+        for cache_file in self.cache_dir.glob("*.pkl"):
+            cache_file.unlink()
+        logger.info("Cache cleared")
+
+
+def parse_human_coding(coding_data: Dict) -> Dict[str, Dict[str, int]]:
+    """Parse human coding data into standardized format"""
+    parsed = {
+        'underrepresentation': {},
+        'overrepresentation': {},
+        'obstacles': {},
+        'successes': {}
+    }
+    
+    for frame_type, demographics in coding_data.items():
+        if frame_type in parsed and isinstance(demographics, dict):
+            parsed[frame_type] = demographics
+    
+    return parsed
 
 
 def setup_colab_paths():
