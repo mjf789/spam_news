@@ -1,0 +1,95 @@
+# Model Configuration
+# Hyperparameters and settings for frame detection models
+
+# Zero-shot classification settings
+zero_shot:
+  model_name: "facebook/bart-large-mnli"
+  confidence_threshold: 0.5
+  batch_size: 8
+  max_length: 512
+
+# Fine-tuning settings
+fine_tuning:
+  base_model: "roberta-base"
+  learning_rate: 2e-5
+  batch_size: 16
+  max_epochs: 10
+  warmup_steps: 100
+  weight_decay: 0.01
+  gradient_accumulation_steps: 2
+  max_grad_norm: 1.0
+  
+  # Early stopping
+  patience: 3
+  min_delta: 0.001
+  
+  # Validation
+  validation_split: 0.2
+  eval_steps: 100
+  save_steps: 500
+
+# Model ensemble settings
+ensemble:
+  models:
+    - type: "zero_shot"
+      weight: 0.4
+    - type: "fine_tuned"
+      weight: 0.6
+  
+  voting_strategy: "weighted_average"
+  confidence_threshold: 0.5
+
+# Feature extraction settings
+features:
+  use_tfidf: true
+  tfidf_max_features: 1000
+  tfidf_ngram_range: [1, 2]
+  
+  use_linguistic: true
+  use_statistical: true
+  use_demographic: true
+  use_contextual: true
+  
+  # Window size for contextual features
+  context_window: 50
+
+# Text preprocessing
+preprocessing:
+  # Segmentation
+  sentence_window_size: 3
+  sentence_overlap: 1
+  
+  # Cleaning
+  remove_urls: true
+  normalize_whitespace: true
+  fix_encoding: true
+  
+  # Filtering
+  min_sentence_length: 10
+  min_paragraph_length: 20
+
+# Training data settings
+training:
+  random_seed: 42
+  stratify: true
+  cross_validation_folds: 5
+  
+  # Data augmentation
+  augment_data: false
+  augmentation_factor: 2
+
+# Model output settings
+output:
+  save_predictions: true
+  save_probabilities: true
+  save_explanations: false
+  
+  # Confidence scores
+  include_confidence: true
+  confidence_bins: [0.5, 0.7, 0.9]
+
+# Device settings
+device:
+  use_gpu: true
+  gpu_memory_fraction: 0.8
+  mixed_precision: true

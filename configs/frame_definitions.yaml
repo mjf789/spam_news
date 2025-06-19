@@ -1,0 +1,199 @@
+# Frame Definitions
+# Based on the original thesis coding guidelines
+
+frames:
+  underrepresentation:
+    definition: "Must explicitly state a group's appearance in leadership at rates LOWER than expected"
+    
+    characteristics:
+      - "Can include numbers but does not have to include numbers"
+      - "Focus on what is explicitly written, not implied"
+      - "Look for comparative language indicating scarcity"
+    
+    keywords:
+      strong: ["underrepresented", "lacking", "absence", "scarcity", "dearth"]
+      moderate: ["few", "only", "just", "merely", "small number", "minority"]
+      comparative: ["less than", "fewer than", "below", "under", "lower rates"]
+      statistical: ["percent", "percentage", "small fraction"]
+    
+    examples:
+      positive:
+        - "Men of color are hired at much lower rates compared to white men, in the context of fulfilling CEO roles."
+        - "Of C-suite leaders today, 21% are women and just 1% are Black women."
+        - "Women comprise only 15% of board members in Fortune 500 companies."
+      
+      negative:
+        - "Many women work in leadership positions."  # No explicit comparison
+        - "The company values diversity."  # Too vague
+    
+    patterns:
+      - "only X% are [demographic]"
+      - "[demographic] make up just X%"
+      - "[demographic] are hired at much lower rates"
+      - "few [demographic] hold [leadership position]"
+
+  overrepresentation:
+    definition: "Must explicitly state a group's appearance in leadership at rates HIGHER than expected"
+    
+    characteristics:
+      - "Can include numbers but does not have to include numbers"
+      - "Focus on dominance and majority language"
+      - "Look for comparative language indicating excess"
+    
+    keywords:
+      strong: ["overrepresented", "dominate", "monopolize", "control"]
+      moderate: ["majority", "most", "predominant", "prevailing"]
+      comparative: ["more than", "exceed", "surpass", "above", "higher rates"]
+      statistical: ["percent", "percentage", "lion's share"]
+    
+    examples:
+      positive:
+        - "White and male employees remain overrepresented in positions that pay the highest salaries."
+        - "Men comprise nearly more than half of all CEO positions in the textile industry (87%)."
+        - "In the United States, men account for 81 percent of board chairs."
+      
+      negative:
+        - "Men are successful leaders."  # No comparison
+        - "White men work hard."  # No reference to representation
+    
+    patterns:
+      - "[demographic] comprise X% of [leadership roles]"
+      - "[demographic] remain overrepresented"
+      - "[demographic] dominate [sector/position]"
+      - "X% of [leadership positions] are held by [demographic]"
+
+  obstacles:
+    definition: "Describes a systemic hindrance or barrier in pursuing leadership"
+    
+    characteristics:
+      - "Must describe specific barriers, not general challenges"
+      - "Can include systemic, institutional, or individual barriers"
+      - "Focus on what makes advancement harder"
+    
+    keywords:
+      structural: ["barrier", "ceiling", "wall", "block", "impediment"]
+      discrimination: ["bias", "discrimination", "prejudice", "stereotypes"]
+      difficulty: ["struggle", "challenge", "difficulty", "hardship", "harder"]
+      systemic: ["systemic", "institutional", "structural", "entrenched"]
+    
+    examples:
+      positive:
+        - "Regardless of a Black woman's desire to advance in her career, there are seemingly insurmountable barriers ahead of her."
+        - "Sexism, racism and a lack of leadership support impact Black women's experiences at work."
+        - "Whereas White women are up against a 'glass ceiling,' Black women are up against a 'concrete ceiling.'"
+        - "Women are having a harder time in the workplace than men."
+      
+      negative:
+        - "Women need more confidence."  # Individual, not systemic
+        - "Leadership is challenging."  # General, not group-specific
+    
+    patterns:
+      - "[demographic] face barriers"
+      - "harder time for [demographic]"
+      - "[discrimination type] impact [demographic]"
+      - "[demographic] are up against [obstacle metaphor]"
+
+  successes:
+    definition: "Describes an achievement or accomplishment in pursuing leadership"
+    
+    characteristics:
+      - "Must describe objective advancement or achievement"
+      - "Can include record-breaking moments or historical landmarks"
+      - "Focus on concrete accomplishments"
+    
+    keywords:
+      achievement: ["achievement", "accomplishment", "success", "triumph"]
+      milestone: ["first", "breakthrough", "milestone", "landmark", "historic"]
+      advancement: ["promoted", "appointed", "elevated", "advanced", "hired"]
+      recognition: ["award", "honor", "recognition", "celebrated"]
+    
+    examples:
+      positive:
+        - "This woman of color just became the first ever CEO in this company's history."
+        - "Asian-American men are making great strides as local governmental leaders."
+        - "Breakthrough! How three in every 10 directors of FTSE 100 firms are now women."
+      
+      negative:
+        - "Women are capable leaders."  # Potential, not achievement
+        - "The company supports diversity."  # Intention, not accomplishment
+    
+    patterns:
+      - "[demographic] became the first [position]"
+      - "[demographic] are making great strides"
+      - "[demographic] achieved [milestone]"
+      - "breakthrough for [demographic]"
+
+# Demographic Detection
+demographics:
+  gender:
+    women: ["women", "woman", "female", "females", "she", "her"]
+    men: ["men", "man", "male", "males", "he", "his", "him"]
+  
+  race_ethnicity:
+    white: ["white", "caucasian"]
+    black: ["black", "african american", "african-american"]
+    hispanic: ["hispanic", "latino", "latina", "latinx"]
+    asian: ["asian", "asian american", "asian-american"]
+    indigenous: ["indigenous", "native american", "native"]
+    people_of_color: ["people of color", "minority", "minorities"]
+  
+  intersectional:
+    women_of_color: 
+      - "women of color"
+      - "black women" 
+      - "latina women"
+      - "hispanic women"
+      - "asian women"
+      - "indigenous women"
+    white_women: ["white women", "caucasian women"]
+    white_men: ["white men", "caucasian men"]
+    men_of_color:
+      - "men of color"
+      - "black men"
+      - "latino men" 
+      - "hispanic men"
+      - "asian men"
+      - "indigenous men"
+
+# Leadership Context
+leadership:
+  positions:
+    - "CEO"
+    - "chief executive"
+    - "executive"
+    - "director"
+    - "manager"
+    - "president"
+    - "vice president"
+    - "VP"
+    - "chief"
+    - "head"
+    - "leader"
+    - "chair"
+    - "chairman"
+    - "chairwoman"
+    - "board member"
+  
+  sectors:
+    business: ["business", "corporate", "company", "firm", "corporation"]
+    government: ["government", "political", "congress", "senate", "mayor", "governor"]
+    academia: ["academic", "university", "college", "education", "professor", "dean"]
+
+# Coding Rules
+coding_rules:
+  general:
+    - "Code for what is explicitly written, not what is implied"
+    - "Carefully consider the language being used"
+    - "Tally exemplars as you read them, not after reading the entire article"
+  
+  exemplar_counting:
+    - "Each instance of framing counts as one exemplar"
+    - "Multiple frames can appear in the same sentence"
+    - "Count each demographic group separately"
+    - "Context matters for intersectional identities"
+  
+  validation:
+    - "Must have explicit mention of leadership context"
+    - "Must have explicit mention of demographic group"
+    - "Must match frame definition criteria"
+    - "Avoid double-counting the same instance"

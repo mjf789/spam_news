@@ -40,20 +40,20 @@ Build a deep learning system to analyze the same 462 news articles from Quincy L
 
 ## Phase 2: Modular Code Development
 
-### Checkpoint 2.1: Core Processing Modules
-- [ ] Create `src/preprocessing.py` with text cleaning functions
-- [ ] Build `src/segmentation.py` for article chunking
-- [ ] Implement `src/feature_extraction.py` for keyword detection
-- [ ] Create `src/frame_detection.py` base classes
-- [ ] Add `src/utils.py` for common utilities
-- [ ] Write unit tests for each module
+### Checkpoint 2.1: Core Processing Modules ✅
+- [x] Create `src/preprocessing.py` with text cleaning functions
+- [x] Build `src/segmentation.py` for article chunking
+- [x] Implement `src/feature_extraction.py` for keyword detection
+- [x] Create `src/frame_detection.py` base classes
+- [x] Add `src/utils.py` for common utilities
+- [x] Write unit tests for each module
 
-### Checkpoint 2.2: Configuration Management
-- [ ] Create `configs/model_config.yaml` for hyperparameters
-- [ ] Add `configs/data_config.yaml` for data paths
-- [ ] Build `configs/frame_definitions.yaml` from coding guidelines
-- [ ] Create config loader with validation
-- [ ] Add Colab-specific path overrides
+### Checkpoint 2.2: Configuration Management ✅
+- [x] Create `configs/model_config.yaml` for hyperparameters
+- [x] Add `configs/data_config.yaml` for data paths
+- [x] Build `configs/frame_definitions.yaml` from coding guidelines
+- [x] Create config loader with validation
+- [x] Add Colab-specific path overrides
 
 ## Phase 3: Pre-trained Model Strategy
 

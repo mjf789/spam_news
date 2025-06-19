@@ -1,0 +1,131 @@
+# Data Configuration
+# Paths and settings for data loading and processing
+
+# Local paths (when running locally)
+local:
+  data_dir: "data"
+  articles_file: "data/articles.json"
+  sample_articles: "data/sample_articles.json"
+  processed_data: "data/processed"
+  cache_dir: "cache"
+  models_dir: "models"
+  results_dir: "results"
+  logs_dir: "logs"
+
+# Google Colab paths (when running in Colab)
+colab:
+  data_dir: "/content/drive/MyDrive/spam_news_data"
+  articles_file: "/content/drive/MyDrive/spam_news_data/articles.json"
+  sample_articles: "/content/spam_news/data/sample_articles.json"
+  processed_data: "/content/drive/MyDrive/spam_news_data/processed"
+  cache_dir: "/content/drive/MyDrive/spam_news_cache"
+  models_dir: "/content/drive/MyDrive/spam_news_models"
+  results_dir: "/content/drive/MyDrive/spam_news_results"
+  logs_dir: "/content/drive/MyDrive/spam_news_logs"
+
+# Google Drive mounting
+drive:
+  mount_point: "/content/drive"
+  auto_mount: true
+
+# Data loading settings
+loading:
+  # File formats supported
+  supported_formats: ["json", "csv", "pickle"]
+  
+  # Validation
+  validate_on_load: true
+  check_duplicates: true
+  
+  # Caching
+  use_cache: true
+  cache_version: "v1"
+  cache_compression: true
+
+# Data splitting
+splitting:
+  train_ratio: 0.6
+  val_ratio: 0.2
+  test_ratio: 0.2
+  random_seed: 42
+  stratify_by: "source"  # Split by news source to ensure balance
+
+# Human coding data
+human_coding:
+  # Expected frame types
+  frame_types:
+    - "underrepresentation"
+    - "overrepresentation" 
+    - "obstacles"
+    - "successes"
+  
+  # Expected demographic groups
+  demographic_groups:
+    - "women"
+    - "men"
+    - "white_women"
+    - "white_men"
+    - "women_of_color"
+    - "men_of_color"
+    - "people_of_color"
+    - "white_people"
+  
+  # Validation rules
+  min_article_length: 50
+  require_human_coding: true
+  
+  # Inter-rater reliability
+  target_icc: 0.7
+  min_agreement: 0.6
+
+# Article metadata
+metadata:
+  required_fields:
+    - "article_id"
+    - "source"
+    - "date"
+    - "title"
+    - "content"
+  
+  optional_fields:
+    - "url"
+    - "author"
+    - "section"
+    - "human_coding"
+  
+  # Source mapping (for standardization)
+  source_mapping:
+    "CNN.com": "CNN"
+    "NPR.org": "NPR"
+    "The New York Times": "NYT"
+    "The Washington Post": "WPost"
+
+# Data quality checks
+quality:
+  min_content_length: 100
+  max_content_length: 50000
+  
+  # Language detection
+  expected_language: "en"
+  language_threshold: 0.8
+  
+  # Content validation
+  check_encoding: true
+  remove_duplicates: true
+  dedupe_threshold: 0.95  # Cosine similarity threshold
+
+# Export settings
+export:
+  include_metadata: true
+  include_predictions: true
+  include_probabilities: true
+  
+  # Format options
+  formats:
+    - "json"
+    - "csv"
+    - "excel"
+  
+  # Compression
+  compress_exports: true
+  compression_format: "gzip"
