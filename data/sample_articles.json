@@ -1,0 +1,92 @@
+[
+    {
+        "article_id": "sample_001",
+        "source": "CNN",
+        "date": "2021-03-15",
+        "title": "Women Still Underrepresented in Corporate Leadership",
+        "content": "Despite making up nearly half of the workforce, women hold only 21% of C-suite positions in Fortune 500 companies. Of C-suite leaders today, 21% are women and just 1% are Black women. This persistent underrepresentation highlights the concrete ceiling that women of color face in corporate America.",
+        "url": "https://example.com/article1",
+        "human_coding": {
+            "underrepresentation": {
+                "women": 1,
+                "women_of_color": 1
+            },
+            "overrepresentation": {},
+            "obstacles": {
+                "women_of_color": 1
+            },
+            "successes": {}
+        }
+    },
+    {
+        "article_id": "sample_002",
+        "source": "NPR",
+        "date": "2021-05-20",
+        "title": "Breaking Barriers: First Black Woman CEO at Major Tech Firm",
+        "content": "In a historic milestone, Sarah Johnson became the first Black woman to lead a Fortune 100 technology company. Despite the systemic barriers that make it harder for women of color to reach executive positions, Johnson's appointment represents a significant breakthrough in diversifying corporate leadership.",
+        "url": "https://example.com/article2",
+        "human_coding": {
+            "underrepresentation": {},
+            "overrepresentation": {},
+            "obstacles": {
+                "women_of_color": 1
+            },
+            "successes": {
+                "women_of_color": 1
+            }
+        }
+    },
+    {
+        "article_id": "sample_003",
+        "source": "WSJ",
+        "date": "2021-07-10",
+        "title": "White Men Continue to Dominate Executive Ranks",
+        "content": "A new study reveals that White men remain overrepresented in leadership positions, holding 68% of senior executive roles despite comprising only 35% of the workforce. Meanwhile, men of color are hired at much lower rates compared to white men in the context of fulfilling CEO roles.",
+        "url": "https://example.com/article3",
+        "human_coding": {
+            "underrepresentation": {
+                "men_of_color": 1
+            },
+            "overrepresentation": {
+                "white_men": 1
+            },
+            "obstacles": {},
+            "successes": {}
+        }
+    },
+    {
+        "article_id": "sample_004",
+        "source": "NYT",
+        "date": "2021-09-01",
+        "title": "The Glass Ceiling vs The Concrete Ceiling",
+        "content": "Whereas White women are up against a glass ceiling, Black women are up against a concrete ceiling. Research shows that Black women report experiencing intractable race-based stereotypes. They report their credibility and authority are called into question. They do not receive the type of institutional support they need.",
+        "url": "https://example.com/article4",
+        "human_coding": {
+            "underrepresentation": {},
+            "overrepresentation": {},
+            "obstacles": {
+                "white_women": 1,
+                "women_of_color": 4
+            },
+            "successes": {}
+        }
+    },
+    {
+        "article_id": "sample_005",
+        "source": "Forbes",
+        "date": "2021-11-15",
+        "title": "Board Diversity: Progress and Challenges",
+        "content": "Between 2016 and 2018, there were a total of 230 new board seats within Fortune 500 firms. Across these openings white women obtained 124, black women 32, asian women 17, and hispanic women only 4 seats. Some worry this is another way for white women to benefit from diversity efforts.",
+        "url": "https://example.com/article5",
+        "human_coding": {
+            "underrepresentation": {
+                "women_of_color": 3
+            },
+            "overrepresentation": {
+                "white_women": 2
+            },
+            "obstacles": {},
+            "successes": {}
+        }
+    }
+]

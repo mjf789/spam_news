@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Data files
+data/
+*.csv
+*.json
+*.xlsx
+*.txt
+!data/sample_articles.json
+!requirements.txt
+
+# Model files
+models/
+*.pt
+*.pth
+*.pkl
+*.h5
+*.bin
+*.safetensors
+
+# Credentials and configs
+.env
+credentials.json
+service-account-key.json
+config_local.yaml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+temp/
+tmp/
+cache/
+
+# Results (keep only visualizations)
+results/*.csv
+results/*.json
+!results/visualizations/
+
+# Google Drive
+drive/
+MyDrive/
